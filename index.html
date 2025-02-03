@@ -3,10 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello, World!</title>
+    <title>Magic The Gathering</title>
+    <style>
+        /* Optional: Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>Welcome to my first HTML page.</p>
+    <h1>Welcome to My Website</h1>
+    <p>Explore the following sections:</p>
+    <button onclick="showDecks()">Decks</button>
+    <button onclick="showPlane()">Planes</button>
+
+      <!-- This is where the generated text will appear -->
+    <div id="output"></div>
+
+    <script>
+        /// DECKS
+        // Array of possible texts for Decks
+        const deckTexts = [
+            "Unicorns (White)",
+            "Angels (White)",
+            "Cats (White)"
+        ];
+
+        // Track the last shown index
+        let lastShownIndex = -1;
+
+        // JavaScript function to display a random text for Decks
+        function showDecks() {
+            let randomIndex;
+
+            // Ensure the same text is not repeated until all others are shown
+            do {
+                randomIndex = Math.floor(Math.random() * deckTexts.length);
+            } while (randomIndex === lastShownIndex);
+
+            // Update the last shown index
+            lastShownIndex = randomIndex;
+
+            // Display the selected text
+            document.getElementById("output").innerText = deckTexts[randomIndex];
+        }
+
+        /////// PLANES
+        // Array of possible texts for Decks
+        const planeTexts = [
+            "At the beginning of your end step, if you have no cards in hand, draw seven cards. Whenever chaos ensues, discard your hand.",
+            "Whenever a white creature dies, return it to the battlefield under its owner's control at the beginning of the next end step. Whenever a nonwhite creature dies, return it to its owner's hand at the beginning of the next end step. Whenever chaos ensues, creatures can't attack you until a player planeswalks.",
+            "When you planeswalk and at the beginning of your upkeep, you may exile a nonland card from your hand with a number of time counters on it equal to its mana value. If it doesn't have suspend, it gains suspend. Whenever chaos ensues, time travel. (For each suspended card you own and each permanent you control with a time counter on it, you may add or remove a time counter.)"
+        ];
+
+        // Track the last shown index
+        let lastShownIndex = -1;
+
+        // JavaScript function to display a random text for Decks
+        function showPlane() {
+            let randomIndex;
+
+            // Ensure the same text is not repeated until all others are shown
+            do {
+                randomIndex = Math.floor(Math.random() * planeTexts.length);
+            } while (randomIndex === lastShownIndex);
+
+            // Update the last shown index
+            lastShownIndex = randomIndex;
+
+            // Display the selected text
+            document.getElementById("output").innerText = planeTexts[randomIndex];
+        }
+    </script>
 </body>
 </html>
