@@ -53,6 +53,7 @@
             // Initialize Firebase
             const app = firebase.initializeApp(firebaseConfig);
             const db = firebase.firestore();
+            console.log("Firebase initialized:", app); // Debugging: Check if Firebase is initialized
 
             // Function to add a deck to Firestore
             function addDeck() {
