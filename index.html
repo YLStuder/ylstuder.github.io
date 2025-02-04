@@ -4,37 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magic The Gathering</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
     <style>
         /* Optional: Add some basic styling */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            margin: 5px;
-            cursor: pointer;
-        }
-        #output {
-            margin-top: 20px;
-            font-weight: bold;
-        }
+           body {
+              font-family: Arial, sans-serif;
+              margin: 20px;
+            }
+            input {
+              padding: 10px;
+              font-size: 16px;
+              margin-right: 10px;
+            }
+            button {
+              padding: 10px 20px;
+              font-size: 16px;
+              cursor: pointer;
+            }
+            #output {
+              margin-top: 20px;
+              font-weight: bold;
+            }
     </style>
 </head>
 <body>
+  <h1>Add a New Deck</h1>
+  <input type="text" id="deckName" placeholder="Enter deck name">
+  <button onclick="addDeck()">Add Deck</button>
+    
     <button onclick="showDecks()">Decks</button>
     <button onclick="showPlane()">Planes</button>
 
       <!-- This is where the generated text will appear -->
     <div id="output"></div>
-
+    
     <script>
+          // Firebase configuration (replace with your own config)
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Function to add a deck to Firestore
+    function addDeck() {
+      const deckName = document.getElementById("deckName").value;
+
+      if (deckName.trim() === "") {
+        alert("Please enter a deck name!");
+        return;
+      }
+
+      // Add the deck to the "decks" collection
+      db.collection("decks").add({
+        name: deckName,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp() // Add a timestamp
+      })
+      .then(() => {
+        console.log("Deck added successfully!");
+        document.getElementById("deckName").value = ""; // Clear the input field
+        getDecks(); // Refresh the list of decks
+      })
+      .catch((error) => {
+        console.error("Error adding deck: ", error);
+      });
+    }
+
+    // Function to fetch and display all decks
+    function getDecks() {
+      const decksList = document.getElementById("decksList");
+      decksList.innerHTML = ""; // Clear the list
+
+      db.collection("decks")
+        .orderBy("timestamp", "desc") // Order by timestamp (newest first)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            const deck = doc.data();
+            decksList.innerHTML += `<p>${deck.name}</p>`;
+          });
+        })
+        .catch((error) => {
+          console.error("Error getting decks: ", error);
+        });
+    }
+
+    // Load decks when the page loads
+    window.onload = getDecks;
+        
         /// DECKS
         // Array of possible texts for Decks
-        const deckTexts = [
-            "Unicorns (White)",
+       /* const deckTexts = [
+        //    "Unicorns (White)",
             "Angels (White)",
-            "Cats (White)"
+            "Cats (White)",
+            "Elves (Green)",
+            "Multiheaded (Green)",
+            "Wolves (Green)",
+            "Insects (Green)",
+            "Landfall (Green)",
+            "Primates (Green)",
+            "Wild (Green)",
+            "Gigantisch (Green)",
         ];
 
         // Track the last shown index
@@ -81,7 +160,8 @@
 
             // Display the selected text
             document.getElementById("output").innerText = planeTexts[randomIndex];
-        }
+        }*/
     </script>
+
 </body>
 </html>
