@@ -29,73 +29,79 @@
     </style>
 </head>
 <body>
-  <h1>Add a New Deck</h1>
-  <input type="text" id="deckName" placeholder="Enter deck name">
-  <button onclick="addDeck()">Add Deck</button>
-    
-  <h2>Decks List</h2>
-  <div id="decksList"></div>
+    <h1>Add a New Deck</h1>
+    <input type="text" id="deckName" placeholder="Enter deck name">
+    <button id="addDeckButton">Add Deck</button>
+
+    <h2>Decks List</h2>
+    <div id="decksList"></div>
 
     <script>
-          // Firebase configuration (replace with your own config)
-    const firebaseConfig = {
-      apiKey: "AIzaSyDylcTILq4s5biWjeXs_rgO0536VNLtuYI",
-      authDomain: "mtg-deckplanes.firebaseapp.com",
-      projectId: "mtg-deckplanes",
-      storageBucket: "mtg-deckplanes.firebasestorage.app",
-      messagingSenderId: "693505481707",
-      appId: "1:693505481707:web:01785b18a50654418bd7ae"
-    };
+    // Wait for the DOM to load before initializing Firebase
+        document.addEventListener("DOMContentLoaded", () => {
+            // Firebase configuration (replace with your own config)
+            const firebaseConfig = {
+                apiKey: "AIzaSyDylcTILq4s5biWjeXs_rgO0536VNLtuYI",
+                authDomain: "mtg-deckplanes.firebaseapp.com",
+                projectId: "mtg-deckplanes",
+                storageBucket: "mtg-deckplanes.firebasestorage.app",
+                messagingSenderId: "693505481707",
+                appId: "1:693505481707:web:01785b18a50654418bd7ae"
+            };
 
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+            // Initialize Firebase
+            const app = firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
 
-    // Function to add a deck to Firestore
-    function addDeck() {
-      const deckName = document.getElementById("deckName").value;
+            // Function to add a deck to Firestore
+            function addDeck() {
+                const deckName = document.getElementById("deckName").value;
 
-      if (deckName.trim() === "") {
-        alert("Please enter a deck name!");
-        return;
-      }
+                if (deckName.trim() === "") {
+                    alert("Please enter a deck name!");
+                    return;
+                }
 
-      // Add the deck to the "decks" collection
-      db.collection("decks").add({
-        name: deckName,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp() // Add a timestamp
-      })
-      .then(() => {
-        console.log("Deck added successfully!");
-        document.getElementById("deckName").value = ""; // Clear the input field
-        getDecks(); // Refresh the list of decks
-      })
-      .catch((error) => {
-        console.error("Error adding deck: ", error);
-      });
-    }
+                // Add the deck to the "decks" collection
+                db.collection("decks").add({
+                    name: deckName,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp() // Add a timestamp
+                })
+                .then(() => {
+                    console.log("Deck added successfully!");
+                    document.getElementById("deckName").value = ""; // Clear the input field
+                    getDecks(); // Refresh the list of decks
+                })
+                .catch((error) => {
+                    console.error("Error adding deck: ", error);
+                });
+            }
 
-    // Function to fetch and display all decks
-    function getDecks() {
-      const decksList = document.getElementById("decksList");
-      decksList.innerHTML = ""; // Clear the list
+            // Function to fetch and display all decks
+            function getDecks() {
+                const decksList = document.getElementById("decksList");
+                decksList.innerHTML = ""; // Clear the list
 
-      db.collection("decks")
-        .orderBy("timestamp", "desc") // Order by timestamp (newest first)
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            const deck = doc.data();
-            decksList.innerHTML += `<p>${deck.name}</p>`;
-          });
-        })
-        .catch((error) => {
-          console.error("Error getting decks: ", error);
+                db.collection("decks")
+                    .orderBy("timestamp", "desc") // Order by timestamp (newest first)
+                    .get()
+                    .then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            const deck = doc.data();
+                            decksList.innerHTML += `<p>${deck.name}</p>`;
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Error getting decks: ", error);
+                    });
+            }
+
+            // Attach the addDeck function to the button click event
+            document.getElementById("addDeckButton").addEventListener("click", addDeck);
+
+            // Load decks when the page loads
+            getDecks();
         });
-    }
-
-    // Load decks when the page loads
-    window.onload = getDecks;
         
         /// DECKS
         // Array of possible texts for Decks
