@@ -33,21 +33,18 @@
   <input type="text" id="deckName" placeholder="Enter deck name">
   <button onclick="addDeck()">Add Deck</button>
     
-    <button onclick="showDecks()">Decks</button>
-    <button onclick="showPlane()">Planes</button>
+  <h2>Decks List</h2>
+  <div id="decksList"></div>
 
-      <!-- This is where the generated text will appear -->
-    <div id="output"></div>
-    
     <script>
           // Firebase configuration (replace with your own config)
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyDylcTILq4s5biWjeXs_rgO0536VNLtuYI",
+      authDomain: "mtg-deckplanes.firebaseapp.com",
+      projectId: "mtg-deckplanes",
+      storageBucket: "mtg-deckplanes.firebasestorage.app",
+      messagingSenderId: "693505481707",
+      appId: "1:693505481707:web:01785b18a50654418bd7ae"
     };
 
     // Initialize Firebase
