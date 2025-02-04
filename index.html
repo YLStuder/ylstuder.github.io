@@ -4,28 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magic The Gathering</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <!-- Load Firebase SDKs with defer -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js" defer></script>
     <style>
         /* Optional: Add some basic styling */
-           body {
-              font-family: Arial, sans-serif;
-              margin: 20px;
-            }
-            input {
-              padding: 10px;
-              font-size: 16px;
-              margin-right: 10px;
-            }
-            button {
-              padding: 10px 20px;
-              font-size: 16px;
-              cursor: pointer;
-            }
-            #output {
-              margin-top: 20px;
-              font-weight: bold;
-            }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -37,16 +38,16 @@
     <div id="decksList"></div>
 
     <script>
-    // Wait for the DOM to load before initializing Firebase
+        // Wait for the DOM and Firebase SDKs to load
         document.addEventListener("DOMContentLoaded", () => {
             // Firebase configuration (replace with your own config)
             const firebaseConfig = {
-            apiKey: "AIzaSyDylcTILq4s5biWjeXs_rgO0536VNLtuYI",
-            authDomain: "mtg-deckplanes.firebaseapp.com",
-            projectId: "mtg-deckplanes",
-            storageBucket: "mtg-deckplanes.firebasestorage.app",
-            messagingSenderId: "693505481707",
-            appId: "1:693505481707:web:01785b18a50654418bd7ae"
+                apiKey: "AIzaSyDylcTILq4s5biWjeXs_rgO0536VNLtuYI",
+                authDomain: "mtg-deckplanes.firebaseapp.com",
+                projectId: "mtg-deckplanes",
+                storageBucket: "mtg-deckplanes.firebasestorage.app",
+                messagingSenderId: "693505481707",
+                appId: "1:693505481707:web:01785b18a50654418bd7ae"
             };
 
             // Initialize Firebase
@@ -102,69 +103,6 @@
             // Load decks when the page loads
             getDecks();
         });
-        
-        /// DECKS
-        // Array of possible texts for Decks
-       /* const deckTexts = [
-        //    "Unicorns (White)",
-            "Angels (White)",
-            "Cats (White)",
-            "Elves (Green)",
-            "Multiheaded (Green)",
-            "Wolves (Green)",
-            "Insects (Green)",
-            "Landfall (Green)",
-            "Primates (Green)",
-            "Wild (Green)",
-            "Gigantisch (Green)",
-        ];
-
-        // Track the last shown index
-        let lastShownIndexD = -1;
-
-        // JavaScript function to display a random text for Decks
-        function showDecks() {
-            let randomIndex;
-
-            // Ensure the same text is not repeated until all others are shown
-            do {
-                randomIndex = Math.floor(Math.random() * deckTexts.length);
-            } while (randomIndex === lastShownIndexD);
-
-            // Update the last shown index
-            lastShownIndexD = randomIndex;
-
-            // Display the selected text
-            document.getElementById("output").innerText = deckTexts[randomIndex];
-        }
-
-        /////// PLANES
-        // Array of possible texts for Decks
-        const planeTexts = [
-            "At the beginning of your end step, if you have no cards in hand, draw seven cards. Whenever chaos ensues, discard your hand.",
-            "Whenever a white creature dies, return it to the battlefield under its owner's control at the beginning of the next end step. Whenever a nonwhite creature dies, return it to its owner's hand at the beginning of the next end step. Whenever chaos ensues, creatures can't attack you until a player planeswalks.",
-            "When you planeswalk and at the beginning of your upkeep, you may exile a nonland card from your hand with a number of time counters on it equal to its mana value. If it doesn't have suspend, it gains suspend. Whenever chaos ensues, time travel. (For each suspended card you own and each permanent you control with a time counter on it, you may add or remove a time counter.)"
-        ];
-
-        // Track the last shown index
-        let lastShownIndexP = -1;
-
-        // JavaScript function to display a random text for Decks
-        function showPlane() {
-            let randomIndex;
-
-            // Ensure the same text is not repeated until all others are shown
-            do {
-                randomIndex = Math.floor(Math.random() * planeTexts.length);
-            } while (randomIndex === lastShownIndexP);
-
-            // Update the last shown index
-            lastShownIndexP = randomIndex;
-
-            // Display the selected text
-            document.getElementById("output").innerText = planeTexts[randomIndex];
-        }*/
     </script>
-
 </body>
 </html>
