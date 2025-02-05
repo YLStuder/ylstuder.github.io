@@ -42,43 +42,43 @@
 
          // Array of random texts for the "Deck" button
         const planeTexts = [
-            "At the beginning of your end step, if you have no cards in hand, draw seven cards." +<br>+ "Whenever chaos ensues, discard your hand.",
-            "Whenever a white creature dies, return it to the battlefield under its owner's control at the beginning of the next end step. Whenever a nonwhite creature dies, return it to its owner's hand at the beginning of the next end step. Whenever chaos ensues, creatures can't attack you until a player planeswalks.",
-            "When you planeswalk and at the beginning of your upkeep, you may exile a nonland card from your hand with a number of time counters on it equal to its mana value. If it doesn't have suspend, it gains suspend. Whenever chaos ensues, time travel."
+            "At the beginning of your end step, if you have no cards in hand, draw seven cards. --- Whenever chaos ensues, discard your hand.",
+            "Whenever a white creature dies, return it to the battlefield under its owner's control at the beginning of the next end step. Whenever a nonwhite creature dies, return it to its owner's hand at the beginning of the next end step. --- Whenever chaos ensues, creatures can't attack you until a player planeswalks.",
+            "When you planeswalk and at the beginning of your upkeep, you may exile a nonland card from your hand with a number of time counters on it equal to its mana value. If it doesn't have suspend, it gains suspend. --- Whenever chaos ensues, time travel."
         ];
 
-        // Array to store the last three generated texts
+        // Array to store the last three generated texts9
         let lastThreeTexts = [];
 
         // Function to generate a random text from the deckTexts array
         function generateRandomDeckText() {
             let randomText;
-            // Ensure the new text is not the same as any of the last three
+
+            // Ensure the new text is not the same as the last one
             do {
                 const randomIndex = Math.floor(Math.random() * deckTexts.length); // Random index
                 randomText = deckTexts[randomIndex]; // Get random text
-            } while (lastThreeTexts.includes(randomText)); // Repeat if the text is in the last three
-            // Update the lastThreeTexts array
-            lastThreeTexts.push(randomText);
-            if (lastThreeTexts.length > 3) {
-                lastThreeTexts.shift(); // Remove the oldest text if the array exceeds 3 items
-            }
+            } while (randomText === lastDeckText); // Repeat if the text is the same as the last one
+
+            // Update the last generated text
+            lastDeckText = randomText;
+
             // Display the selected text
             document.getElementById("output").textContent = randomText;
         }
         
         function generateRandomPlaneText() {
             let randomText;
-            // Ensure the new text is not the same as any of the last three
+
+            // Ensure the new text is not the same as the last one
             do {
                 const randomIndex = Math.floor(Math.random() * planeTexts.length); // Random index
                 randomText = planeTexts[randomIndex]; // Get random text
-            } while (lastThreeTexts.includes(randomText)); // Repeat if the text is in the last three
-            // Update the lastThreeTexts array
-            lastThreeTexts.push(randomText);
-            if (lastThreeTexts.length > 3) {
-                lastThreeTexts.shift(); // Remove the oldest text if the array exceeds 3 items
-            }
+            } while (randomText === lastPlaneText); // Repeat if the text is the same as the last one
+
+            // Update the last generated text
+            lastPlaneText = randomText;
+
             // Display the selected text
             document.getElementById("output").textContent = randomText;
         }
