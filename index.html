@@ -47,9 +47,10 @@
             "When you planeswalk and at the beginning of your upkeep, you may exile a nonland card from your hand with a number of time counters on it equal to its mana value. If it doesn't have suspend, it gains suspend. --- Whenever chaos ensues, time travel."
         ];
 
-        // Array to store the last three generated texts9
-        let lastThreeTexts = [];
-
+        // Variables to store the last generated text for decks and planes
+        let lastDeckText = "";
+        let lastPlaneText = "";
+        
         // Function to generate a random text from the deckTexts array
         function generateRandomDeckText() {
             let randomText;
